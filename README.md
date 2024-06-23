@@ -15,4 +15,5 @@ In order to run this program you first need to install some modules:
         pip install keyboard
     • pyaudio(for audio adjustment)
         pip install pyaudio
-
+    • Random
+        pip install random
