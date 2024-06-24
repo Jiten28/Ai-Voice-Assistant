@@ -2,18 +2,18 @@ Welcome to my AI Voice Assistant — your friendly companion for seamless intera
 
 In order to run this program you first need to install some modules:
     • GoogleSearch
-        pip install googlesearch-python
+        (pip install googlesearch-python)
     • Python Text to Speech
-        pip install pyttsx3
+        (pip install pyttsx3)
     • SpeechRecognition
-        pip install SpeechRecognition
+        (pip install SpeechRecognition)
     • wikipedia
-        pip install wikipedia
+        (pip install wikipedia)
     • Pywahtkit (for WhatsApp and YouTube automation)
-        pip install pywhatkit
+        (pip install pywhatkit)
     • keyboard (for automatic keyboard typing)
-        pip install keyboard
+        (pip install keyboard)
     • pyaudio(for audio adjustment)
-        pip install pyaudio
+        (pip install pyaudio)
     • Random
-        pip install random
+        (pip install random)
