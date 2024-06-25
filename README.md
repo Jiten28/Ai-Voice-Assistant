@@ -9,7 +9,7 @@ In order to run this program you first need to install some modules:
         (pip install SpeechRecognition)
     • wikipedia
         (pip install wikipedia)
-    • Pywahtkit (for WhatsApp and YouTube automation)
+    • Pywahtkit (for WhatsApp and YouTube automation) & pyautogui (for Screenshots)
         (pip install pywhatkit)
     • keyboard (for automatic keyboard typing)
         (pip install keyboard)
