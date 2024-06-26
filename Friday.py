@@ -11,6 +11,8 @@ import time
 import pywhatkit #automation
 import pyautogui #Screenshot
 import keyboard as k #automatic press keyboard keys
+import random as rd 
+
 
 wb = webbrowser.get('windows-default')
 
@@ -22,25 +24,40 @@ engine.setProperty('Rate',100)
 def speak(audio):
     engine.say(audio)
     engine.runAndWait()
-    
-
-print("Initializing Friday!!!")
-speak("Initializing Friday!!!")
 
 
 def wishMe():
     hour = int(datetime.datetime.now().hour)
     if hour>=0 and hour<12:
-        speak("Good Morning Sir!")
+        speak("Good Morning ")
 
     elif hour>=12 and hour<18:
-        speak("Good Afternoon Sir!")   
+        speak("Good Afternoon ")   
 
     else:
-        speak("Good Evening Sir!")  
+        speak("Good Evening ")  
 
-    speak("I am Friday.")  
-    speak("How can I assist you?")
+
+def Activation(): 
+    activation_voice_lines = {
+    1: "Rise and shine, human! Let's tackle the day!",
+    2: "Good morning, sunshine! What's the plan?",
+    3: "Greetings, Earthling! What can I assist you with today?",
+    4: "Beep boop! Your friendly AI assistant reporting for duty!",
+    5: "Hey there, [User's Name]! Ready to conquer the digital realm?",    #face recognition for user name identification
+    6: "Time to unleash the power of technology! How can I serve you?",
+    7: "It's AI o'clock! How can I assist?",
+    8: "I'm online and ready to rock your socks off! So, What's the plan?",
+    9: "Welcome back, [User's Name]! Let's make magic happen!",
+    10: "Beep beep! I'm here to make your day easier than pie! What can I help you with?",
+    11: "I've got your back, digitally speaking! How can I make your life smoother?",
+    12: "Ready to be your digital sidekick! What's the mission?",
+    13: "Consider me your genie in the cloud! What's your wish?",
+    }   
+    quote = rd.randrange(0,13)
+    # Accessing a specific phrase
+    print(activation_voice_lines[quote])  # Output: "Friday is online and geared up for some chat with a dash of fun!"
+    speak(activation_voice_lines[quote])
 
 
 def takeCommand():
@@ -104,7 +121,7 @@ def screenshot():
     print("Ok Sir, What Should I Name this File ?")
     ss = takeCommand()
     ssname = ss+'.png'
-    path = "D:\\Programs\\Python\\AI voice Assistant\\Friday\\Screenshot\\"+ssname   #enter your screenshot folder path
+    path = "D:\\Coding\\Python\\AI Voice Assistant\\Screenshot\\"+ssname   #enter your screenshot folder path
     scst = pyautogui.screenshot()
     scst.save(path)
     speak("Screenshots has been saved successfully with name {}".format(ssname))
@@ -172,7 +189,7 @@ def Whatsapp():
     print("Tell me the Name of the Person :")
     Pname = takeCommand()
 
-    if 'Papa' in Pname:
+    if 'Name' in Pname:
         speak("What should I say ")
         print("What should I say :")
         msg = takeCommand()
@@ -181,10 +198,10 @@ def Whatsapp():
         hour = int(takeCommand()) 
         speak("Time in minutes")
         min = int(takeCommand()) 
-        pywhatkit.sendwhatmsg('+918487906039',msg,hour,min,20)
+        pywhatkit.sendwhatmsg('+911234567890',msg,hour,min,20)
         time.sleep(10)
         k.press_and_release("enter")
-        speak("Whatsapp Message has been Sent to Daddy successfully")
+        speak("Whatsapp Message has been Sent to <Name> successfully")
 
     else:
         speak("Enter his/her Phone Number")
@@ -206,6 +223,7 @@ def Whatsapp():
 
 if __name__ == "__main__":
     wishMe()
+    Activation()
     while True:
         query = takeCommand().lower()
         wb = webbrowser.get('windows-default')
