@@ -116,7 +116,7 @@ def CloseApps():
     speak("Applications has been closed Successfully")
 
 
-def screenshot():
+def screenshot():             #In order to use this feature, you need to create a folder to save screenshots taken by the AI
     speak("Ok Sir, What Should I Name this File ")
     print("Ok Sir, What Should I Name this File ?")
     ss = takeCommand()
@@ -408,7 +408,7 @@ if __name__ == "__main__":
 
         elif 'email' in query:
             try:
-                tofile = open("F:\\Programs\\Python\\Project Friday\\Friday 2.0\\tomail.txt", "r")
+                tofile = open("F:\\Programs\\Python\\Project Friday\\Friday 2.0\\tomail.txt", "r")  #Add your tomail.txt path
                 data = tofile.read()
                 js = json.loads(data)
                 Persons = js.keys()
