@@ -21,7 +21,7 @@ password = "password"
 screenshot_file = "D:\\Coding\\Python\\AI Voice Assistant\\Screenshot\\"            #Add your Screeshot folder path
 Mail_Dictionary = "F:\\Programs\\Python\\Project Friday\\Friday 2.0\\tomail.txt"    #Add your tomail.txt path      
 
-wb = webbrowser.get('windows-default')
+wb = webbrowser.get('windows-default')   #Specifying the default browser for searching and other uses
 
 engine = pyttsx3.init('sapi5')
 voices = engine.getProperty('voices')
@@ -69,7 +69,7 @@ def Activation():
 
 def takeCommand():
     r = sr.Recognizer()
-    with sr.Microphone() as source:
+    with sr.Microphone() as source:      #Microphone setting 
         print("Listening...")
         r.energy_threshold = 250
         r.adjust_for_ambient_noise(source, duration = 1)
