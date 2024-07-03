@@ -13,6 +13,13 @@ import pyautogui #Screenshot
 import keyboard as k #automatic press keyboard keys
 import random as rd 
 
+#Personal Details
+gmail = "samplemail@gmail.com"
+password = "password"
+
+#Folder Paths#Add your tomail.txt path
+screenshot_file = "D:\\Coding\\Python\\AI Voice Assistant\\Screenshot\\"            #Add your Screeshot folder path
+Mail_Dictionary = "F:\\Programs\\Python\\Project Friday\\Friday 2.0\\tomail.txt"    #Add your tomail.txt path      
 
 wb = webbrowser.get('windows-default')
 
@@ -83,8 +90,6 @@ def takeCommand():
 
 
 def sendEmail(to, content):
-    gmail = "samplemail@gmail.com"
-    password = "password"
     server = smtplib.SMTP('smtp.gmail.com', 587)
     server.starttls()
     server.login(gmail, password)
@@ -121,7 +126,7 @@ def screenshot():             #In order to use this feature, you need to create 
     print("Ok Sir, What Should I Name this File ?")
     ss = takeCommand()
     ssname = ss+'.png'
-    path = "D:\\Coding\\Python\\AI Voice Assistant\\Screenshot\\"+ssname   #enter your screenshot folder path
+    path = screenshot_file+ssname   #enter your screenshot folder path
     scst = pyautogui.screenshot()
     scst.save(path)
     speak("Screenshots has been saved successfully with name {}".format(ssname))
@@ -225,6 +230,7 @@ if __name__ == "__main__":
     wishMe()
     Activation()
     while True:
+        # query = input("Enter your query: ")
         query = takeCommand().lower()
         wb = webbrowser.get('windows-default')
 
@@ -408,7 +414,7 @@ if __name__ == "__main__":
 
         elif 'email' in query:
             try:
-                tofile = open("F:\\Programs\\Python\\Project Friday\\Friday 2.0\\tomail.txt", "r")  #Add your tomail.txt path
+                tofile = open(Mail_Dictionary, "r")
                 data = tofile.read()
                 js = json.loads(data)
                 Persons = js.keys()
