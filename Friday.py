@@ -297,10 +297,6 @@ if __name__ == "__main__":
             speak("opening N P T E L website")
             wb.open('https://swayam.gov.in/nc_details/NPTEL')
 
-        elif 'MRITS' in query:
-            speak("opening M R I T S Website")
-            wb.open('http://www.mrits.ac.in/')
-
         elif 'weather' in query:
             speak("Showing Weather Status")
             wb.open('https://weather.com/en-IN/weather/today/l/d7f5a4af529e40b0a82d339e5467e89458e5ad5e2cf0ffdd05c853ed3e98fd38')
@@ -338,7 +334,7 @@ if __name__ == "__main__":
             CloseApps()
 
         elif 'my location' in query:
-            wb.open("https://www.google.com/maps/@17.4316778,78.3500869,15z")
+            wb.open("https://www.google.com/maps/place//@17.4384644,78.3575307,20.79z?entry=ttu")
             speak("Jiten Kumar lives in GPRA Quaters which is located in Gachibowli hyderabad telangana ")
 
         elif 'take screenshot' in query:
