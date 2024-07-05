@@ -26,4 +26,7 @@ It can perform the following actions:
     • Show Weather
     • Take Screenshot
     • Open and Close Application
+    • Chrome Automation
+    • Whatsapp Automation
+    • Play any Music
 
