@@ -16,4 +16,11 @@ In order to run this program you first need to install some modules:
     • pyaudio(for audio adjustment)
         (pip install pyaudio)
     • Random
-        (pip install random
+        (pip install random)
+
+It can perform the following actions:
+    • Google Search
+    • Wikipedia Search
+    • Youtube Search
+    • Open any website
+
