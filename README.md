@@ -23,4 +23,7 @@ It can perform the following actions:
     • Wikipedia Search
     • Youtube Search
     • Open any website
+    • Show Weather
+    • Take Screenshot
+    • Open and Close Application
 
