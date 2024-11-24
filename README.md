@@ -1,5 +1,7 @@
 Welcome to my AI Voice Assistant — your friendly companion for seamless interaction with your devices. Powered by Python and Machine Learning, it listens, answers questions, and performs tasks effortlessly, just like chatting with a friend. Enhance your daily activities with intuitive voice commands.
 
+Python version: 3.11.9
+
 In order to run this program you first need to install some modules:
     • GoogleSearch
         (pip install googlesearch-python)
