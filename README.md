@@ -23,7 +23,10 @@ The AI Voice Assistant is a Python-powered application that brings the convenien
 ### **Future Enhancements**  
 - **Personalized Commands**: Introduce user-specific settings and custom commands.  
 - **Natural Language Understanding**: Enhance conversational capabilities using advanced NLP techniques.  
-- **Integration with Smart Devices**: Expand functionality to control IoT and smart home devices.  
+- **Integration with Smart Devices**: Expand functionality to control IoT and smart home devices.
+
+### **Python Version**
+- Python 3.11.9 or higher.
 
 ### **Steps to Start the Project**  
 1. **Setup Python Environment**: Install Python version 3.11.9 or higher.  
