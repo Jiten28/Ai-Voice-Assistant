@@ -1,4 +1,4 @@
-## **AI Voice Assistant** AG
+GAG
 **Your Friendly Companion for Seamless Interaction with Devices**
 
 ### **Overview**  
