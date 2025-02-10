@@ -1,4 +1,4 @@
-## **AI Voice Assistant**  qagQWFAGHHAHHH
+## **AI Voice Assistant** AG
 **Your Friendly Companion for Seamless Interaction with Devices**
 
 ### **Overview**  
