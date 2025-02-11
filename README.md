@@ -10,6 +10,8 @@ The AI Voice Assistant is a Python-powered application that brings the convenien
 - **YouTube Search**: Search and play videos or music on YouTube.  
 - **Website Navigation**: Open any website with simple voice commands.  
 - **Weather Updates**: Stay informed about the current weather.  
+- **Screenshot Capture**: Take screenshots on the go.  
+- **Application Management**: Open or close applications seamlessly.  
 
 
 ### **Challenges**  
