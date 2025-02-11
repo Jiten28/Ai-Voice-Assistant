@@ -8,6 +8,8 @@ The AI Voice Assistant is a Python-powered application that brings the convenien
 - **Google Search**: Quickly retrieve answers to your questions using Google Search.  
 - **Wikipedia Search**: Access summarized information from Wikipedia instantly.  
 - **YouTube Search**: Search and play videos or music on YouTube.  
+- **Website Navigation**: Open any website with simple voice commands.  
+- **Weather Updates**: Stay informed about the current weather.  
 
 
 ### **Challenges**  
