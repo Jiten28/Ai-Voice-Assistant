@@ -6,6 +6,7 @@ The AI Voice Assistant is a Python-powered application that brings the convenien
 
 ### **Key Features**  
 - **Google Search**: Quickly retrieve answers to your questions using Google Search.  
+- **Wikipedia Search**: Access summarized information from Wikipedia instantly.  
 
 
 ### **Challenges**  
