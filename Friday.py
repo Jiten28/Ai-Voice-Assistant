@@ -217,7 +217,7 @@ def Whatsapp():
         msg = takeCommand()
         speak("Tell me the Time to send your message ")
         speak("Time in hour")
-        hour = int(takeCommand()) 
+        hour = int(takeCommand()) #24hr system
         speak("Time in minutes")
         min = int(takeCommand()) 
         pywhatkit.sendwhatmsg(Pnum,msg,hour,min,20)  #here 20 is the wait time
