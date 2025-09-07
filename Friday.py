@@ -1,4 +1,4 @@
-import pyttsx3
+import pyttsx3 
 import speech_recognition as sr
 import datetime
 import wikipedia
@@ -6,248 +6,233 @@ import webbrowser
 import os
 import smtplib
 import json
+from googlesearch import search 
 import time
 import pywhatkit
 import keyboard as k
 import random as rd
 import requests
 from dotenv import load_dotenv
+import os
 
-# Load API keys from .env
+# Load environment variables
 load_dotenv()
 OPENWEATHER_API_KEY = os.getenv("OPENWEATHER_API_KEY")
 NEWSAPI_API_KEY = os.getenv("NEWSAPI_API_KEY")
 EMAIL_ADDRESS = os.getenv("EMAIL_ADDRESS")
 EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
 
-# Personal details
-Mail_Dictionary = "F:\\Programs\\Python\\Project Friday\\Friday 2.0\\tomail.txt"
+# Initialize text-to-speech
+engine = pyttsx3.init('sapi5')
+voices = engine.getProperty('voices')
+engine.setProperty('voice', voices[1].id)
+engine.setProperty('Rate', 100)
 
-wb = webbrowser.get("windows-default")
+wb = webbrowser.get('windows-default')
 
-engine = pyttsx3.init("sapi5")
-voices = engine.getProperty("voices")
-engine.setProperty("voice", voices[1].id)
-engine.setProperty("rate", 180)
-
+# Speak function
 def speak(audio):
     engine.say(audio)
     engine.runAndWait()
 
+# Greet
 def wishMe():
     hour = int(datetime.datetime.now().hour)
-    if hour < 12:
-        speak("Good Morning ")
-    elif hour < 18:
-        speak("Good Afternoon ")
+    if hour >=0 and hour<12:
+        speak("Good Morning")
+    elif hour>=12 and hour<18:
+        speak("Good Afternoon")
     else:
-        speak("Good Evening ")
+        speak("Good Evening")
 
-def Activation():
+# Activation line
+def Activation(): 
     activation_voice_lines = {
-        1: "Rise and shine! Let's tackle the day!",
-        2: "What can I assist you with today?",
-        3: "Your friendly AI assistant reporting for duty!",
-        4: "Time to unleash the power of technology!",
-        5: "I'm online and ready. What's the plan?",
-    }
-    quote = rd.randrange(1, 6)
+        1: "Rise and shine, human! Let's tackle the day!",
+        2: "Sunshine! What's the plan?",
+        3: "Earthling! What can I assist you with today?",
+        4: "Beep boop! Your friendly AI assistant reporting for duty!",
+        5: "Hey there! Ready to conquer the digital realm?",
+        6: "Time to unleash the power of technology! How can I serve you?",
+        7: "It's AI o'clock! How can I assist?",
+        8: "I'm online and ready to rock your socks off! So, What's the plan?",
+        9: "Welcome back! Let's make magic happen!",
+        10: "Beep beep! I'm here to make your day easier than pie! What can I help you with?",
+        11: "I've got your back, digitally speaking! How can I make your life smoother?",
+        12: "Ready to be your digital sidekick! What's the mission?",
+        13: "Consider me your genie in the cloud! What's your wish?",
+    }   
+    quote = rd.randrange(1,14)
     print(activation_voice_lines[quote])
     speak(activation_voice_lines[quote])
 
+# Take voice input
 def takeCommand():
     r = sr.Recognizer()
     with sr.Microphone() as source:
         print("Listening...")
         r.energy_threshold = 250
-        r.adjust_for_ambient_noise(source, duration=1)
+        r.adjust_for_ambient_noise(source, duration = 1)
+        r.phrase_threshold = 0.5
+        r.pause_threshold = 1
         audio = r.listen(source)
 
     try:
-        print("Recognizing...")
-        query = r.recognize_google(audio, language="en-in")
+        print("Recognizing...")    
+        query = r.recognize_google(audio, language='en-in')
         print(f"User said: {query}\n")
-    except Exception:
-        print("I couldn't recognize, please say that again...")
-        speak("I couldn't recognize, please say that again")
+    except:
+        print("I couldn't recognize. Please say that again.")
+        speak("I couldn't recognize. Please say that again.")  
         return "None"
     return query.lower()
 
-def sendEmail():
-    try:
-        with open("mail_contacts.json", "r") as f:
+CONTACTS_JSON = "contacts.json"
+# Send email
+def get_email_contact(name):
+    contacts = {}
+    if os.path.exists(CONTACTS_JSON):
+        with open(CONTACTS_JSON, 'r') as f:
             contacts = json.load(f)
+    if name in contacts and "email" in contacts[name]:
+        return contacts[name]["email"]
+    # Ask user if not found
+    email = input(f"Enter email for {name}: ")
+    if name not in contacts:
+        contacts[name] = {}
+    contacts[name]["email"] = email
+    with open(CONTACTS_JSON, 'w') as f:
+        json.dump(contacts, f)
+    return email
 
-        print("Available contacts:", list(contacts.keys()))
-        speak("To whom do you want to send the email?")
-        name = input("Enter contact name: ")
-
-        if name in contacts:
-            to = contacts[name]
-        else:
-            to = input("Email not found. Enter recipient email: ")
-
-        speak("What should I say?")
-        content = takeCommand()
-
+def sendEmail(to, content):
+    try:
         server = smtplib.SMTP('smtp.gmail.com', 587)
         server.starttls()
-        server.login(os.getenv("EMAIL_ADDRESS"), os.getenv("EMAIL_PASSWORD"))
-        server.sendmail(os.getenv("EMAIL_ADDRESS"), to, content)
+        server.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
+        server.sendmail(EMAIL_ADDRESS, to, content)
         server.quit()
-
-        speak("Email has been sent successfully!")
-
+        speak("Email sent successfully!")
     except Exception as e:
-        print("Email Error:", e)
-        speak("Sorry, I couldn't send the email.")
+        print(f"Email Error: {e}")
+        speak("Failed to send email. Check your App Password and contact info.")
 
-
-def get_weather(city="Hyderabad"):
-    url = f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid={OPENWEATHER_API_KEY}&units=metric"
-    res = requests.get(url).json()
-    print("Weather API Response:", res)
-    if res.get("cod") != 200:
-        speak("Couldn't fetch weather. Please check API key or city name.")
-        return
-    weather = res["weather"][0]["description"]
-    temp = res["main"]["temp"]
-    speak(f"The weather in {city} is {weather} with a temperature of {temp} degree Celsius.")
-
-def get_news():
-    url = f"https://newsapi.org/v2/top-headlines?country=in&apiKey={NEWSAPI_API_KEY}"
-    res = requests.get(url).json()
-    articles = res.get("articles", [])
-    if not articles:
-        url = f"https://newsapi.org/v2/top-headlines?country=us&apiKey={NEWSAPI_API_KEY}"
-        res = requests.get(url).json()
-        articles = res.get("articles", [])
-    if not articles:
-        speak("No news found.")
-        return
-    speak("Here are the top headlines:")
-    for i, article in enumerate(articles[:5], 1):
-        speak(f"{i}. {article['title']}")
-
-def Whatsapp():
-    try:
-        with open("whatsapp_contacts.json", "r") as f:
+# WhatsApp
+def get_whatsapp_contact(name):
+    contacts = {}
+    if os.path.exists(CONTACTS_JSON):
+        with open(CONTACTS_JSON, 'r') as f:
             contacts = json.load(f)
+    if name in contacts and "whatsapp" in contacts[name]:
+        return contacts[name]["whatsapp"]
+    number = input(f"Enter WhatsApp number for {name} (+91): ")
+    if name not in contacts:
+        contacts[name] = {}
+    contacts[name]["whatsapp"] = "+91" + number
+    with open(CONTACTS_JSON, 'w') as f:
+        json.dump(contacts, f)
+    return contacts[name]["whatsapp"]
 
-        print("Available contacts:", list(contacts.keys()))
-        speak("Tell me the name of the person.")
-        name = input("Enter contact name: ")
+def sendWhatsApp():
+    speak("Tell me the Name of the Person")
+    name = input("Enter contact name: ").title()
+    number = get_whatsapp_contact(name)
+    speak("What should I say?")
+    msg = takeCommand()
+    speak("Do you want to send now or later? Type 'now' or 'later'")
+    choice = input("Send now or later? (now/later): ").lower()
+    if choice == 'now':
+        pywhatkit.sendwhatmsg_instantly(number, msg, wait_time=10, tab_close=True)
+        speak(f"WhatsApp message sent to {name} instantly")
+    else:
+        hour = int(input("Hour (24h format): "))
+        minute = int(input("Minute: "))
+        pywhatkit.sendwhatmsg(number, msg, hour, minute)
+        speak(f"WhatsApp message scheduled for {hour}:{minute}")
 
-        if name in contacts:
-            number = contacts[name]
+# Weather
+def get_weather(city):
+    url = f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid={OPENWEATHER_API_KEY}&units=metric"
+    try:
+        response = requests.get(url).json()
+        if response.get("cod") == 200:
+            temp = response["main"]["temp"]
+            desc = response["weather"][0]["description"]
+            speak(f"Weather in {city}: {desc}, temperature {temp} degree Celsius")
         else:
-            number = input("Number not found. Enter phone number with country code: ")
+            speak("City not found or invalid API key.")
+    except Exception:
+        speak("Failed to fetch weather. Check your API key.")
 
-        speak("What should I say?")
-        msg = takeCommand()
-
-        print("Do you want to send the message now or later?")
-        choice = input("Type 'now' or 'later': ").lower()
-
-        if choice == "now":
-            pywhatkit.sendwhatmsg_instantly(number, msg, wait_time=20, tab_close=True)
-            speak("Message sent instantly.")
-        elif choice == "later":
-            hour = int(input("Hour (24-hour format): "))
-            minute = int(input("Minutes: "))
-            pywhatkit.sendwhatmsg(number, msg, hour, minute, wait_time=20, tab_close=True)
-            speak("Message scheduled successfully.")
+# News
+def get_news():
+    url = f"https://newsapi.org/v2/top-headlines?country=us&apiKey={NEWSAPI_API_KEY}"
+    try:
+        response = requests.get(url).json()
+        articles = response.get("articles", [])
+        if articles:
+            speak("Here are the top headlines:")
+            for i, art in enumerate(articles[:5], 1):
+                print(f"{i}. {art['title']}")
+                speak(art['title'])
         else:
-            speak("Invalid choice. Please type 'now' or 'later'.")
+            speak("No news found right now.")
+    except Exception:
+        speak("Failed to fetch news. Check your API key.")
 
-    except Exception as e:
-        print("WhatsApp Error:", e)
-        speak("Sorry, I couldn't send the WhatsApp message.")
-
-
-# -------------------- MAIN --------------------
+# Main
 if __name__ == "__main__":
     wishMe()
     Activation()
     while True:
         query = takeCommand()
-
-        if "search in google" in query:
-            speak("Searching in Google...")
-            query = query.replace("search in google", "")
-            pywhatkit.search(query)
-
-        elif "in wikipedia" in query:
-            speak("Searching in Wikipedia...")
-            query = query.replace("search", "").replace("in wikipedia", "")
-            results = wikipedia.summary(query, sentences=2)
+        if 'google' in query:
+            speak('Searching in Google...')
+            query = query.replace("google","").replace("search","").replace("friday","")
+            for link in search(query, num_results=3, lang='en'):
+                wb.open(link)
+                
+        elif 'wikipedia' in query:
+            query = query.replace("wikipedia","").replace("search","").replace("friday","")
+            results = wikipedia.summary(query, sentences=3)
             speak("According to Wikipedia")
             print(results)
             speak(results)
-
-        elif "in youtube" in query:
-            speak("Searching in YouTube")
-            query = query.replace("search in youtube", "")
+            
+        elif 'youtube' in query:
+            speak("Searching in YouTube...")
+            query = query.replace("youtube","").replace("search","").replace("friday","")
             web = "https://www.youtube.com/results?search_query=" + query
             wb.open(web)
-
-        elif "weather" in query:
-            city = query.replace("weather in", "").strip()
-            if not city:
-                city = "Hyderabad"
-            get_weather(city)
-
-        elif "news" in query:
-            get_news()
-
-        elif "play a song" in query or "play" in query:
-            song = query.replace("play", "").strip()
-            if song:
-                speak(f"Playing {song} on YouTube")
-                pywhatkit.playonyt(song)
-
-        elif "time" in query:
+            
+        elif 'song' in query or 'music' in query:
+            speak("What would you like to hear?")
+            song = takeCommand()
+            pywhatkit.playonyt(song)
+            speak("Playing your song.")
+            
+        elif 'time' in query:
             strTime = datetime.datetime.now().strftime("%H:%M:%S")
-            print(f"The time is {strTime}")
-            speak(f"The time is {strTime}")
-
-        elif "whatsapp message" in query:
-            Whatsapp()
-
-        elif "email" in query:
-            try:
-                tofile = open(Mail_Dictionary, "r")
-                data = tofile.read()
-                js = json.loads(data)
-                print(js.keys())
-                speak("To whom do you want to send?")
-                n = input("Enter the name: ")
-                to = js[n]
-                speak("What should I say?")
-                content = takeCommand()
-                if sendEmail(to, content):
-                    speak("Email has been sent successfully!")
-                else:
-                    speak("Sorry, I couldn't send the email.")
-            except Exception as e:
-                print(e)
-                speak("Sorry, I couldn't send the email.")
-
-        elif "open visual studio code" in query:
-            os.system("Code.exe")
-
-        elif "close visual studio code" in query:
-            os.system("TASKKILL /F /im code.exe")
-
-        elif "open chrome" in query:
-            os.system("chrome.exe")
-
-        elif "close chrome" in query:
-            os.system("TASKKILL /F /im chrome.exe")
-
-        elif "your name" in query or "who are you" in query:
-            speak("I am Friday, your AI Voice Assistant.")
-
-        elif "disconnect" in query or "take a break" in query:
-            speak("Goodbye Sir, disconnecting...")
+            speak(f"Sir, the time is {strTime}")
+            print(f"Sir, the time is {strTime}")
+            
+        elif 'send whatsapp' in query:
+            sendWhatsApp()
+            
+        elif 'send email' in query:
+            name = input("Enter recipient name: ").title()
+            to = get_email_contact(name)
+            speak("What should I say?")
+            content = takeCommand()
+            sendEmail(to, content)
+            
+        elif 'news' in query:
+            get_news()
+            
+        elif 'weather' in query:
+            speak("Tell me the city name:")
+            city = takeCommand()
+            get_weather(city)
+        elif 'disconnect' in query or 'exit' in query or 'quit' in query:
+            speak("Goodbye Sir!")
             break

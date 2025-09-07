@@ -1,128 +1,138 @@
-## **AI Voice Assistant**  
+# AI Voice Assistant 🤖
+
 **Your Friendly Companion for Seamless Interaction with Devices**
 
-### **Overview**  
-The AI Voice Assistant is a Python-powered application that brings the convenience of voice commands to your fingertips. With capabilities ranging from answering questions to performing tasks like web searches, playing music, and automating applications, this assistant operates effortlessly, just like chatting with a friend. Enhance your daily activities with intuitive and hands-free interactions.
+---
 
-### **Key Features**  
-- **Google Search**: Quickly retrieve answers to your questions using Google Search.  
-- **Wikipedia Search**: Access summarized information from Wikipedia instantly.  
-- **YouTube Search**: Search and play videos or music on YouTube.  
-- **Website Navigation**: Open any website with simple voice commands.  
-- **Weather Updates**: Stay informed about the current weather.  
-- **Screenshot Capture**: Take screenshots on the go.  
-- **Application Management**: Open or close applications seamlessly.  
-- **Chrome Automation**: Automate tasks within the Chrome browser.  
-- **WhatsApp Automation**: Send messages and interact with WhatsApp using voice commands.  
-- **Music Playback**: Play your favorite music effortlessly.
+## **Overview**
 
-### **Challenges**  
-- **Voice Recognition Accuracy**: Ensuring the assistant correctly interprets user commands under varying conditions.  
-- **System Compatibility**: Maintaining smooth operation across different devices and operating systems.
+The AI Voice Assistant is a Python-powered application that brings the convenience of voice commands to your fingertips. With capabilities ranging from answering questions to performing tasks like web searches, playing music, sending WhatsApp messages, and sending emails, this assistant operates effortlessly—just like chatting with a friend.
 
-### **Future Enhancements**  
-- **Personalized Commands**: Introduce user-specific settings and custom commands.  
-- **Natural Language Understanding**: Enhance conversational capabilities using advanced NLP techniques.  
-- **Integration with Smart Devices**: Expand functionality to control IoT and smart home devices.
+---
 
-### **Python Version**
-- Python 3.11.9 or higher.
+## **Features**
 
-### **Steps to Start the Project**  
-1. **Setup Python Environment**: Install Python version 3.11.9 or higher.  
-2. **Install Required Modules**: Use the installation commands provided below.  
-3. **Run the Program**: Execute the Python script to activate the voice assistant.  
-4. **Interact**: Use the listed commands to explore its features.
+* **Google Search**: Search anything on Google via voice commands.
+* **Wikipedia Search**: Fetch summarized information from Wikipedia instantly.
+* **YouTube Search**: Search and play videos or music on YouTube.
+* **Website Navigation**: Open any website using voice.
+* **Weather Updates**: Check current weather using OpenWeatherMap API (or alternative API).
+* **WhatsApp Messaging**: Send messages instantly or schedule them for later.
+* **Email Automation**: Send emails to saved contacts or add new ones on-the-go.
+* **Music Playback**: Play your favorite songs via YouTube.
+* **Application Management**: Open or close applications seamlessly.
 
-### **Libraries and Installation Commands**  
-Here are the necessary libraries for the project and their installation commands:
+---
 
-1. **GoogleSearch**  
-   - **Install Command**:  
-     ```bash
-     pip install googlesearch-python
-     ```  
-   - **Use**: For performing Google searches.  
-     ```python
-     from googlesearch import search
-     ```
+## **Future Enhancements**
 
-2. **Python Text to Speech (pyttsx3)**  
-   - **Install Command**:  
-     ```bash
-     pip install pyttsx3
-     ```  
-   - **Use**: For converting text to speech.  
-     ```python
-     import pyttsx3
-     ```
+* Personalized user commands
+* Improved Natural Language Understanding (NLP)
+* Integration with smart home devices and IoT
 
-3. **SpeechRecognition**  
-   - **Install Command**:  
-     ```bash
-     pip install SpeechRecognition
-     ```  
-   - **Use**: For recognizing and interpreting voice input.  
-     ```python
-     import speech_recognition as sr
-     ```
+---
 
-4. **Wikipedia**  
-   - **Install Command**:  
-     ```bash
-     pip install wikipedia
-     ```  
-   - **Use**: To fetch summaries and detailed information from Wikipedia.  
-     ```python
-     import wikipedia
-     ```
+## **Requirements**
 
-5. **PyWhatKit**  
-   - **Install Command**:  
-     ```bash
-     pip install pywhatkit
-     ```  
-   - **Use**: For WhatsApp and YouTube automation.  
-     ```python
-     import pywhatkit as kit
-     ```
+* Python 3.11 or higher
+* A Gmail account with a 16-digit App Password for email sending
+* Chrome installed and logged in to WhatsApp Web for WhatsApp automation
 
-6. **Keyboard**  
-   - **Install Command**:  
-     ```bash
-     pip install keyboard
-     ```  
-   - **Use**: For simulating keyboard inputs.  
-     ```python
-     import keyboard
-     ```
+---
 
-7. **PyAutoGUI**  
-   - **Install Command**:  
-     ```bash
-     pip install pyautogui
-     ```  
-   - **Use**: For taking screenshots and automating mouse interactions.  
-     ```python
-     import pyautogui
-     ```
+## **Setup Instructions**
 
-8. **Random**  
-   - **Install Command**:  
-     ```bash
-     pip install random
-     ```  
-   - **Use**: For generating random data.  
-     ```python
-     import random
-     ```
+### **1. Clone the Repository**
 
-9. **PyAudio**  
-   - **Install Command**:  
-     ```bash
-     pip install pyaudio
-     ```  
-   - **Use**: For audio input and output adjustments.  
-     ```python
-     import pyaudio
-     ```
+```bash
+git clone https://github.com/<your-username>/AI-Voice-Assistant.git
+cd AI-Voice-Assistant
+```
+
+### **2. Install Dependencies**
+
+```bash
+pip install -r requirements.txt
+```
+
+### **3. Create `.env` File**
+
+Create a `.env` file in the project root directory and add your credentials:
+
+```env
+OPENWEATHER_API_KEY=your_openweather_api_key
+NEWSAPI_API_KEY=your_newsapi_key
+EMAIL_ADDRESS=your_email@gmail.com
+EMAIL_PASSWORD=your_16_digit_app_password
+```
+
+> **Note:** Use a 16-digit Gmail App Password instead of your regular Gmail password.
+
+### **4. Create `contacts.json` (Optional)**
+
+You can predefine email and WhatsApp contacts:
+
+```json
+{
+  "Jiten": {
+    "email": "jiten@example.com",
+    "whatsapp": "+911234567890"
+  },
+  "Tobi": {
+    "email": "tobi@example.com",
+    "whatsapp": "+919876543210"
+  }
+}
+```
+
+> If a contact is not found, the assistant will prompt you to input details.
+
+### **5. Run the Assistant**
+
+```bash
+python main.py
+```
+
+* Follow voice instructions to interact.
+* Use the listed commands for Google, YouTube, Wikipedia, weather, news, email, WhatsApp, and music.
+
+---
+
+## **Commands (Examples)**
+
+* `"search in Google for Python tutorials"`
+* `"search in Wikipedia for Machine Learning"`
+* `"play music"`
+* `"send WhatsApp"`
+* `"send email"`
+* `"weather"`
+* `"news"`
+* `"time"`
+* `"disconnect"` or `"exit"`
+
+---
+
+## **Dependencies (for `requirements.txt`)**
+
+```
+googlesearch-python
+pyttsx3
+SpeechRecognition
+wikipedia
+pywhatkit
+keyboard
+requests
+python-dotenv
+pyaudio
+```
+
+---
+
+## **Notes**
+
+* Ensure API keys are valid and activated.
+* Chrome must be installed and logged in to WhatsApp Web for messaging.
+* Email sending requires Gmail App Password.
+
+---
+
