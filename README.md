@@ -45,7 +45,7 @@ The AI Voice Assistant is a Python-powered application that brings the convenien
 ### **1. Clone the Repository**
 
 ```bash
-git clone https://github.com/<your-username>/AI-Voice-Assistant.git
+git clone https://github.com/Jiten28/Ai-Voice-Assistant.git
 cd AI-Voice-Assistant
 ```
 
@@ -78,8 +78,8 @@ You can predefine email and WhatsApp contacts:
     "email": "jiten@example.com",
     "whatsapp": "+911234567890"
   },
-  "Tobi": {
-    "email": "tobi@example.com",
+  "Tony": {
+    "email": "tony@example.com",
     "whatsapp": "+919876543210"
   }
 }
