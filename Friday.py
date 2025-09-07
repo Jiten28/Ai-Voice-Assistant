@@ -75,7 +75,7 @@ def takeCommand():
 
 def sendEmail():
     try:
-        with open("contacts/mail_contacts.json", "r") as f:
+        with open("mail_contacts.json", "r") as f:
             contacts = json.load(f)
 
         print("Available contacts:", list(contacts.keys()))
@@ -131,7 +131,7 @@ def get_news():
 
 def Whatsapp():
     try:
-        with open("contacts/whatsapp_contacts.json", "r") as f:
+        with open("whatsapp_contacts.json", "r") as f:
             contacts = json.load(f)
 
         print("Available contacts:", list(contacts.keys()))
