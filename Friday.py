@@ -73,17 +73,35 @@ def takeCommand():
         return "None"
     return query.lower()
 
-def sendEmail(to, content):
+def sendEmail():
     try:
-        server = smtplib.SMTP("smtp.gmail.com", 587)
+        with open("contacts/mail_contacts.json", "r") as f:
+            contacts = json.load(f)
+
+        print("Available contacts:", list(contacts.keys()))
+        speak("To whom do you want to send the email?")
+        name = input("Enter contact name: ")
+
+        if name in contacts:
+            to = contacts[name]
+        else:
+            to = input("Email not found. Enter recipient email: ")
+
+        speak("What should I say?")
+        content = takeCommand()
+
+        server = smtplib.SMTP('smtp.gmail.com', 587)
         server.starttls()
-        server.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
-        server.sendmail(EMAIL_ADDRESS, to, content)
+        server.login(os.getenv("EMAIL_ADDRESS"), os.getenv("EMAIL_PASSWORD"))
+        server.sendmail(os.getenv("EMAIL_ADDRESS"), to, content)
         server.quit()
-        return True
+
+        speak("Email has been sent successfully!")
+
     except Exception as e:
         print("Email Error:", e)
-        return False
+        speak("Sorry, I couldn't send the email.")
+
 
 def get_weather(city="Hyderabad"):
     url = f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid={OPENWEATHER_API_KEY}&units=metric"
@@ -112,16 +130,40 @@ def get_news():
         speak(f"{i}. {article['title']}")
 
 def Whatsapp():
-    speak("Enter phone number with country code, e.g., +91...")
-    number = input("Phone number: ")
-    speak("What should I say?")
-    msg = takeCommand()
-    speak("In how many minutes?")
-    minutes = int(input("Minutes: "))
-    hour = datetime.datetime.now().hour
-    minute = datetime.datetime.now().minute + minutes
-    pywhatkit.sendwhatmsg(number, msg, hour, minute)
-    speak("Message scheduled.")
+    try:
+        with open("contacts/whatsapp_contacts.json", "r") as f:
+            contacts = json.load(f)
+
+        print("Available contacts:", list(contacts.keys()))
+        speak("Tell me the name of the person.")
+        name = input("Enter contact name: ")
+
+        if name in contacts:
+            number = contacts[name]
+        else:
+            number = input("Number not found. Enter phone number with country code: ")
+
+        speak("What should I say?")
+        msg = takeCommand()
+
+        print("Do you want to send the message now or later?")
+        choice = input("Type 'now' or 'later': ").lower()
+
+        if choice == "now":
+            pywhatkit.sendwhatmsg_instantly(number, msg, wait_time=20, tab_close=True)
+            speak("Message sent instantly.")
+        elif choice == "later":
+            hour = int(input("Hour (24-hour format): "))
+            minute = int(input("Minutes: "))
+            pywhatkit.sendwhatmsg(number, msg, hour, minute, wait_time=20, tab_close=True)
+            speak("Message scheduled successfully.")
+        else:
+            speak("Invalid choice. Please type 'now' or 'later'.")
+
+    except Exception as e:
+        print("WhatsApp Error:", e)
+        speak("Sorry, I couldn't send the WhatsApp message.")
+
 
 # -------------------- MAIN --------------------
 if __name__ == "__main__":
