@@ -2,7 +2,6 @@ pyttsx3
 SpeechRecognition
 wikipedia
 pywhatkit
-pyautogui
 keyboard
 googlesearch-python
 requests
